@@ -77,6 +77,7 @@ public class RemindersListFragment extends Fragment implements DialogNewReminder
                 saveData();
 
                 // TODO: ACTUALLY DELETE THE ALERT
+                // update stored ids in shared preferences
 
             }
         });
@@ -98,7 +99,6 @@ public class RemindersListFragment extends Fragment implements DialogNewReminder
     private void saveData() {
         SharedPreferences sp = getActivity().getSharedPreferences(COLLECTION_LIST, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-//        editor.remove(COLLECTION_LIST);
         Gson gson = new Gson();
         String json = gson.toJson(reminderList);
         editor.putString("reminders_list", json);

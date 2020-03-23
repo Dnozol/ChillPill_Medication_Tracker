@@ -37,6 +37,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
+import java.util.Vector;
 
 public class DialogNewReminder extends DialogFragment{
     /**
@@ -52,7 +53,7 @@ public class DialogNewReminder extends DialogFragment{
     String nAmpm;
 
     // 50 medications should be more than enough
-    int alarmIds[] = new int[50];
+    Vector<Integer> alarmIds = new Vector<>();
     ArrayList<Medication> rx_list;
     ArrayList<String> title_list = new ArrayList<>();
     ReminderItem newReminder;
@@ -72,6 +73,7 @@ public class DialogNewReminder extends DialogFragment{
         final EditText reminderName = view.findViewById(R.id.dialog_reminder_title);
 
         loadCurrentRx();
+        getAlarmsList();
 
         final ListView check_list = view.findViewById(R.id.pick_rx_list);
         check_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -151,8 +153,7 @@ public class DialogNewReminder extends DialogFragment{
                 int newMinute = Integer.parseInt(textMinute.getText().toString());
                 String newAmpm = textAmpm.getText().toString();
                 String newTime = textHour.getText().toString() + ":" +
-                                 textMinute.getText().toString() + " " +
-                                 textAmpm.getText().toString();
+                                 textMinute.getText().toString() + " " + newAmpm;
                 // get the name of the reminder
                 String newTitle = reminderName.getText().toString();
                 // get the list of medications
@@ -171,22 +172,24 @@ public class DialogNewReminder extends DialogFragment{
                 // create random number generator, save numbers in an array to avoid duplicating IDs
                 Random rand = new Random();
 
-                int newAlarmId = 0;
+                // 6-digit id to avoid repetition
+                int newAlarmId = rand.nextInt(1000000);
                 // make sure we don't add a number that already exists
-                Boolean found = false;
-                while(found == false && newAlarmId == 0) {
-
-                    // TODO: CHECK FOR REPEATING VALUE
+                int found = alarmIds.indexOf(newAlarmId);
+                while(found > -1) {
+                    newAlarmId = rand.nextInt(1000000);
+                    found = alarmIds.indexOf(newAlarmId);
                 }
+                alarmIds.add(newAlarmId);
+                saveAlarms();
 
-                // save the array in sharedPreferences
                 // create the new reminder object
-                newReminder = new ReminderItem(checked_rx, newTime);
+                newReminder = new ReminderItem(checked_rx, newTime, newAlarmId);
                 if(newReminder.getMedications().size() != 0 && !newTitle.equals("")) {
                     inputSelected.sendInput(newTitle, newReminder);
 
                     // create a unique request code
-                    startAlarm(newHour, newMinute, newAmpm);
+                    startAlarm(newHour, newMinute, newAmpm, newAlarmId);
                 }
 
                 getDialog().dismiss();
@@ -196,14 +199,14 @@ public class DialogNewReminder extends DialogFragment{
         return view;
     }
 
-    private void startAlarm(int hour, int min, String ampm) {
+    private void startAlarm(int hour, int min, String ampm, int alarmId) {
         // min = 00, the value will actually 0
         Log.d("Time", hour + ":" + min + ampm);
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getContext(), AlertReceiver.class);
 
         Calendar c = Calendar.getInstance();
-        int numAmPm = ampm == "AM" ? 0 : 1;
+        int numAmPm = ampm.equals("AM") ? 0 : 1;
         if(numAmPm == 1) {
             hour = hour + 12;
         }
@@ -211,7 +214,7 @@ public class DialogNewReminder extends DialogFragment{
         c.set(Calendar.MINUTE, min);
         c.set(Calendar.SECOND, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), alarmId, intent, 0);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
@@ -237,6 +240,30 @@ public class DialogNewReminder extends DialogFragment{
         for(int i = 0; i < rx_list.size(); i++) {
             String name = rx_list.get(i).getName();
             title_list.add(name);
+        }
+    }
+
+    private void saveAlarms() {
+
+        // save the array and new ID in sharedPreferences
+        SharedPreferences sp = getActivity().getSharedPreferences("reminderIds", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(alarmIds);
+        editor.putString("alarmIds", json);
+        editor.apply();
+    }
+
+    private void getAlarmsList() {
+        SharedPreferences sp = this.getActivity().getSharedPreferences("reminderIds", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sp.getString("alarmIds", null);
+        Type type = new TypeToken<Vector<Integer>>() {}.getType();
+
+        alarmIds = gson.fromJson(json, type);
+
+        if (alarmIds == null) {
+            alarmIds = new Vector<Integer>();
         }
     }
 
