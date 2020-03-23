@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_calendar"
+            android:title="@string/calendar" />
+        <item
+            android:id="@+id/nav_past_rx"
+            android:icon="@drawable/ic_past_rx"
+            android:title="@string/past_rx" />
+        <item
+            android:id="@+id/nav_current_rx"
+            android:icon="@drawable/ic_current_rx"
+            android:title="@string/current_rx" />
+        <item
+            android:id="@+id/nav_care_providers"
+            android:icon="@drawable/ic_care_providers"
+            android:title="@string/care_providers" />
+        <item
+            android:id="@+id/nav_insurance_cards"
+            android:icon="@drawable/ic_insurance_cards"
+            android:title="@string/insurance_cards" />
+        <item
+            android:id="@+id/nav_reminders"
+            android:title="Reminders"/>
+    </group>
+</menu>

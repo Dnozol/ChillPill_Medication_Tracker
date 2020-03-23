@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/dialog_reminder_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:inputType="text"
+        android:hint="Name of Reminder (ex: Morning)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RelativeLayout
+        android:id="@+id/reminder_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_reminder_title"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/reminder_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@+id/reminder_minute"
+            android:text="1"
+            android:textSize="30sp" />
+        <TextView
+            android:id="@+id/reminder_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="00"
+            android:textSize="30sp" />
+        <TextView
+            android:id="@+id/reminder_ampm"
+            android:layout_width="100dp"
+            android:layout_toEndOf="@+id/reminder_minute"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="AM"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/dialog_add_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Add Reminder" />
+
+    <Button
+        android:id="@+id/dialog_cancel_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Cancel" />
+
+
+    <ListView
+        android:id="@+id/pick_rx_list"
+        android:layout_width="match_parent"
+        android:layout_height="408dp"
+        android:layout_above="@+id/dialog_add_reminder"
+        android:layout_below="@+id/time_picker_layout"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:scrollbars="vertical" />
+
+    <RelativeLayout
+        android:id="@+id/time_picker_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminder_time"
+        android:layout_marginTop="10dp">
+
+        <Spinner
+            android:id="@+id/spinner_hour"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toStartOf="@+id/spinner_minute"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner_minute"
+            android:layout_width="wrap_content"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="30sp" />
+
+        <Spinner
+            android:id="@+id/spinner_ampm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/spinner_minute"
+            app:layout_constraintStart_toEndOf="@+id/spinner_minute" />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
