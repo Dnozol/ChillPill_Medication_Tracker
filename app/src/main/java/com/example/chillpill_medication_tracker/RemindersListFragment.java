@@ -1,6 +1,9 @@
 package com.example.chillpill_medication_tracker;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.ArrayMap;
@@ -72,12 +75,14 @@ public class RemindersListFragment extends Fragment implements DialogNewReminder
             @Override
             public void OnDeleteClick(int position) {
                 Log.d("RemList", "DELETE");
+                ReminderItem delItem = (ReminderItem) reminderList.get(reminderList.keyAt(position));
+                
+                int alarmId = delItem.getAlarmId();
+                cancelAlarm(alarmId);
+
                 reminderList.remove(reminderList.keyAt(position));
                 reminderAdapter.notifyItemRemoved(position);
                 saveData();
-
-                // TODO: ACTUALLY DELETE THE ALERT
-                // update stored ids in shared preferences
 
             }
         });
@@ -130,5 +135,14 @@ public class RemindersListFragment extends Fragment implements DialogNewReminder
             reminderAdapter.notifyItemInserted(reminderList.indexOfKey(title));
             saveData();
         }
+    }
+
+    private void cancelAlarm(int alarmId) {
+
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getContext(), AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), alarmId, intent, 0);
+
+        alarmManager.cancel(pendingIntent);
     }
 }

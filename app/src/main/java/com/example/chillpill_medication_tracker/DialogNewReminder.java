@@ -216,16 +216,7 @@ public class DialogNewReminder extends DialogFragment{
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), alarmId, intent, 0);
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-    }
-
-    private void cancelAlarm() {
-
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getContext(), AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
-
-        alarmManager.cancel(pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     // get the list of all of the current prescriptions to add to the reminder
