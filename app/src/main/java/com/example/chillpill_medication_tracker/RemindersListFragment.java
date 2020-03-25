@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,14 +71,20 @@ public class RemindersListFragment extends Fragment implements DialogNewReminder
         reminderAdapter.setOnItemClickListener(new ReminderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.d("RemList", "CLICK");
+                Log.d("RemList", "Details");
+                Intent intent = new Intent(getActivity(), ReminderDetails.class);
+                Gson gson = new Gson();
+                String json = gson.toJson(reminderList.get(reminderList.keyAt(position)));
+                intent.putExtra("Reminder", json);
+                intent.putExtra("ReminderTitle", (String) reminderList.keyAt(position));
+                startActivity(intent);
             }
 
             @Override
             public void OnDeleteClick(int position) {
                 Log.d("RemList", "DELETE");
                 ReminderItem delItem = (ReminderItem) reminderList.get(reminderList.keyAt(position));
-                
+
                 int alarmId = delItem.getAlarmId();
                 cancelAlarm(alarmId);
 
