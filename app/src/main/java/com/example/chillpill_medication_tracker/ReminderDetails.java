@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,11 +38,18 @@ public class ReminderDetails extends AppCompatActivity {
 
         String time = reminder.getTime();
         ArrayList<Medication> rx = reminder.getMedications();
+        ArrayList<String> adaptedRx = new ArrayList<>();
+        for(int i = 0; i < rx.size(); i++) {
+            Log.d("rx", rx.get(i).getName());
+            adaptedRx.add(rx.get(i).getName());
+        }
 
         TextView tTitle = findViewById(R.id.reminder_details_title);
         TextView tTime = findViewById(R.id.reminder_details_time);
 
-        RecyclerView rvRx = findViewById(R.id.reminder_details_medication);
+        ListView lv = findViewById(R.id.reminder_details_medication);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, adaptedRx);
+        lv.setAdapter(adapter);
 
         tTitle.setText(title);
         tTime.setText(time);

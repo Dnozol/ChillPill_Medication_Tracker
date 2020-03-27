@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class PastRxFragment extends Fragment{
     private RecyclerView rv;
     private RxAdapter mAdapter;
 
-    public static final String PASTRX = "past_rx";
+    private static final String PASTRX = "past_rx";
 
     @Nullable
     @Override

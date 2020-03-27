@@ -7,7 +7,7 @@
         android:id="@+id/reminder_details_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:text="title" />
 
     <TextView
@@ -17,12 +17,13 @@
         android:layout_height="wrap_content"
         android:text="time"
         android:layout_below="@id/reminder_details_title"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/reminder_details_medication"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_below="@+id/reminder_details_time"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        style="@style/reminder_rx_style"/>
 </RelativeLayout>

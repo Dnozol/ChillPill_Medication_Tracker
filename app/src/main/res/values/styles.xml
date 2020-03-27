@@ -9,4 +9,9 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="reminder_rx_style">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

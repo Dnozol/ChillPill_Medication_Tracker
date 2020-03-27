@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class RxAdapter extends RecyclerView.Adapter<RxAdapter.MedicationViewHolder> {
     private ArrayList<Medication> mRxList;
-    Context c;
+    private Context c;
     private OnItemClickListener mListener;
     public interface OnItemClickListener {
         void onItemClick(int position);

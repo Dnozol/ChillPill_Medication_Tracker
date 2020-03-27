@@ -40,9 +40,8 @@ import java.util.Random;
 import java.util.Vector;
 
 public class DialogNewReminder extends DialogFragment{
-    /**
-     * Not sure if this actually works yet, we don't have it inflating yet.
-     */
+
+
     TextView time;
     TextView textHour;
     TextView textMinute;

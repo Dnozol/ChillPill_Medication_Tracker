@@ -22,13 +22,4 @@ public class ReminderItem {
     }
     public int getAlarmId() { return alarmId; }
 
-    public void setRx(ArrayList<Medication> rxList) {
-        rx = rxList;
-    }
-
-    public void setTime(String newTime) {
-        time = newTime;
-    }
-
-
 }

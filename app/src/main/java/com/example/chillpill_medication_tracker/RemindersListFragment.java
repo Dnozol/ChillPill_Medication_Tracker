@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,17 +38,13 @@ import java.util.ArrayList;
 
 public class RemindersListFragment extends Fragment implements DialogNewReminder.OnInputSelected{
 
-    // The collection of lists of medications, each collection will have it's own
-    // notification time
-
     private ArrayMap reminderList = new ArrayMap();
-    private ArrayList<Medication> oneItem = new ArrayList<>();
 
     private RecyclerView rv;
     private ReminderAdapter reminderAdapter;
     private Button newReminderButton;
 
-    public static final String COLLECTION_LIST = "collection";
+    private static final String COLLECTION_LIST = "collection";
 
     @Nullable
     @Override

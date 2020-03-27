@@ -15,15 +15,13 @@ import androidx.fragment.app.DialogFragment;
 
 public class dialog_newRx extends DialogFragment {
 
-    EditText rx_name;
-    EditText rx_instructions;
-    Button ok_button;
-    Button cancel_button;
+    private EditText rx_name;
+    private EditText rx_instructions;
 
     public interface OnInputSelected {
         void sendInput(String name, String instructions);
     }
-    public OnInputSelected inputSelected;
+    private OnInputSelected inputSelected;
 
     @Nullable
     @Override
@@ -31,8 +29,8 @@ public class dialog_newRx extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_prescription, container, false);
         rx_name = view.findViewById(R.id.dialog_rx_name);
         rx_instructions = view.findViewById(R.id.dialog_rx_instructions);
-        ok_button = view.findViewById(R.id.dialog_add_rx);
-        cancel_button = view.findViewById(R.id.dialog_cancel_rx);
+        Button ok_button = view.findViewById(R.id.dialog_add_rx);
+        Button cancel_button = view.findViewById(R.id.dialog_cancel_rx);
 
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +57,6 @@ public class dialog_newRx extends DialogFragment {
 
     @Override
     public void onAttach(Context context) {
-        Log.d("dialog_newRx", "onAttach");
         super.onAttach(context);
         try {
             inputSelected = (OnInputSelected) getTargetFragment();

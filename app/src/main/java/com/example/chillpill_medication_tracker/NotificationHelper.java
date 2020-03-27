@@ -1,7 +1,6 @@
 package com.example.chillpill_medication_tracker;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;

@@ -8,20 +8,13 @@ import java.io.Serializable;
 public class Medication implements Parcelable, Serializable {
     private String name, instructions;
     // private String description;
-//    private int quantity;
-//    private int image;
-    public Medication () {
-        name = "";
-        instructions = "";
-//        description = "";
-//        quantity = -1;
-    }
+
     public Medication (String name, String instructions) {
         this.name = name;
         this.instructions = instructions;
     }
 
-    protected Medication(Parcel in) {
+    private Medication(Parcel in) {
         name = in.readString();
         instructions = in.readString();
     }
@@ -50,10 +43,6 @@ public class Medication implements Parcelable, Serializable {
         return instructions;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -67,21 +56,5 @@ public class Medication implements Parcelable, Serializable {
 
 //    public String getDescription() {
 //        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-//
-//    public int getQuantity() {
-//        return quantity;
-//    }
-//
-//    public void setQuantity(int quantity) {
-//        this.quantity = quantity;
-//    }
-//
-//    public int getImage() {
-//        return image;
 //    }
 }
