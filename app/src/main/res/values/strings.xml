@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChillPill_Medication_Tracker</string>
+    <string name="app_name">ChillPill Medication Tracker</string>
     <string name="calendar">Calendar</string>
     <string name="past_rx">Past Prescriptions</string>
     <string name="current_rx">Current Prescriptions</string>
